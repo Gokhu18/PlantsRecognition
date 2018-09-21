@@ -1,13 +1,22 @@
 from pathlib import Path
-from sklearn.externals import joblib
+from sklearn.model_selection import cross_val_score
 from sklearn.metrics import accuracy_score
-from sklearn.metrics import confusion_matrix
+from sklearn.ensemble import RandomForestClassifier
+
 
 
 class LearnAlgorithms(object):
 
-    def __init__():
-        log("Initing...")
+    def __init__(self, images, labels, cv):
+        self.images = images
+        self.labels = labels
+        self.cv = cv
+
+    def runRandomForest(self):
+        rf = RandomForestClassifier(n_estimators=100)
+        rf.fit(self.images,self.labels)
+        scores = cross_val_score(rf, self.images, self.labels, cv=self.cv)
+        print(scores)
 
     def log(self, msg):
         print('[Learn] {}'.format(msg))

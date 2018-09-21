@@ -13,4 +13,4 @@ class ReadFiles(object):
         return self.images
 
     def getLabels(self):
-        return self.images
+        return self.labels

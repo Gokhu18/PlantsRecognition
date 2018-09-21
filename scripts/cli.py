@@ -12,7 +12,7 @@ def getAdapter():
 
     parser.add_argument('--algorithm', dest='algorithm', choices=[''], type=str, default=DEFAULT_ALGORITHM, help='Select Learning Algorithm')
 
-    parser.add_argument('-cv', dest='crosVal', type=int, default=DEFAULT_CROSSVAL, help='Select Cross Validation Value')
+    parser.add_argument('-cv', dest='crossVal', type=int, default=DEFAULT_CROSSVAL, help='Select Cross Validation Value')
 
     parser.add_argument('--train', dest='train', default=DEFAULT_TRAIN, type=bool, help='Enable or disable the training of the model')
 
@@ -22,6 +22,6 @@ def getAdapter():
 
     args = parser.parse_args()
 
-    adapter = Adapter()
+    adapter = Adapter(args.crossVal)
 
     return adapter
