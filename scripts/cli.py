@@ -5,6 +5,7 @@ DEFAULT_PLOT = 'none'
 DEFAULT_TRAIN = False
 DEFAULT_ALGORITHM = ''
 DEFAULT_CROSSVAL = 10
+DEFAULT_PLOT = False
 
 
 def getAdapter():
@@ -16,12 +17,11 @@ def getAdapter():
 
     parser.add_argument('--train', dest='train', default=DEFAULT_TRAIN, type=bool, help='Enable or disable the training of the model')
 
-    # parser.add_argument('--proc', dest='proc', default=DEFAULT_PROCESSING, choices=['binaryLines', 'normalLines', 'None'], type=str, help='Type of image processing before training')
-    #
-    parser.add_argument('--confplot', dest='confPlot', default=DEFAULT_PLOT, choices=['none', 'normalized', 'cases'] ,type=str, help='Change how confusion matrices are plot.')
+    parser.add_argument('--plot', dest='confPlot', default=DEFAULT_PLOT ,type=bool, help='Change how confusion matrices are plot.')
 
     args = parser.parse_args()
 
-    adapter = Adapter(args.crossVal)
+    adapter = Adapter(args.crossVal,
+                      args.confPlot)
 
     return adapter

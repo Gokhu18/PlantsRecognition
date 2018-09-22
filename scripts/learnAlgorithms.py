@@ -1,5 +1,5 @@
-from pathlib import Path
-from sklearn.model_selection import cross_val_score
+from sklearn.metrics import confusion_matrix
+from sklearn.model_selection import cross_val_score, cross_val_predict
 from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
 
@@ -12,24 +12,20 @@ class LearnAlgorithms(object):
         self.labels = labels
         self.cv = cv
 
-    def runRandomForest(self):
+    def runRFPredict(self):
         rf = RandomForestClassifier(n_estimators=100)
         rf.fit(self.images,self.labels)
-        scores = cross_val_score(rf, self.images, self.labels, cv=self.cv)
-        print(scores)
+        y_pred = cross_val_predict(rf, self.images, self.labels, cv=self.cv)
+        return confusion_matrix(self.labels, y_pred)
+
+    def runRFScore(self):
+        rf = RandomForestClassifier(n_estimators=100)
+        rf.fit(self.images,self.labels)
+        score = cross_val_score(rf, self.images, self.labels, cv=self.cv)
+        self.log(score)
 
     def log(self, msg):
         print('[Learn] {}'.format(msg))
-
-#
-
-# RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
-#             max_depth=None, max_features='auto', max_leaf_nodes=None,
-#             min_impurity_decrease=0.0, min_impurity_split=None,
-#             min_samples_leaf=1, min_samples_split=2,
-#             min_weight_fraction_leaf=0.0, n_estimators=100, n_jobs=1,
-#             oob_score=False, random_state=None, verbose=0,
-#             warm_start=False)
 
 # feature_imp = pd.Series(clf.feature_importances_,index=iris.feature_names).sort_values(ascending=False)
 # feature_imp
