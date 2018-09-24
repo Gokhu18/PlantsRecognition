@@ -7,6 +7,7 @@ class ReadFiles(object):
     def __init__(self):
         self.data = pd.read_csv("../files/leaf.csv", header=None)
         self.labels = self.data.pop(0).values
+        self.data.pop(1)
         self.images = self.data.values
 
     def getImages(self):
