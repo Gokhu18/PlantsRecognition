@@ -24,18 +24,6 @@ class Plot(object):
         plt.xticks(tick_marks, classes, rotation='vertical')
         plt.yticks(tick_marks, classes)
 
-        # for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
-        #     if cm[i, j] > 0.5: 
-        #         if normalize:
-        #             string = "{0:.0f}%".format(cm[i, j]*100)
-        #         else:
-        #             string = "{}".format(cm[i, j])
-
-
-        #         plt.text(j, i, string,
-        #                  horizontalalignment="center",
-        #                  color="white" if cm[i, j] > 0.9 else "black")
-
         plt.tight_layout()
         plt.ylabel('classes reais')
         plt.xlabel('classes preditas')
@@ -48,9 +36,17 @@ class Plot(object):
                     'Lobedness', 'Average Intensity', 'Average Contrast', 'Smoothness',
                     'Third moment', 'Uniformity', 'Entropy']
 
+        l = []
+        vec = vec.tolist()
+        for i in range(14):
+            l.append((vec[i], features[i]))
+
+        l = sorted(l, key=lambda x: x[0], reverse=True)        
+        print(l)
+
         plt.figure()
         plt.title("Importância das características")
-        plt.bar(np.arange(14), vec)
-        plt.xticks(np.arange(14), features, rotation=45, rotation_mode="anchor", ha="right")
+        plt.bar(np.arange(14), [x[0] for x in l])
+        plt.xticks(np.arange(14), [x[1] for x in l], rotation=45, rotation_mode="anchor", ha="right")
         plt.tight_layout()
         plt.show()

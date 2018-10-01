@@ -7,6 +7,7 @@ DEFAULT_ALGORITHM = ''
 DEFAULT_CROSSVAL = 10
 DEFAULT_NUMBER_OF_TREES = 100
 DEFAULT_PLOT = False
+DEFAULT_BEST = False
 
 
 def getAdapter():
@@ -22,10 +23,13 @@ def getAdapter():
 
     parser.add_argument('--plot', dest='confPlot', default=DEFAULT_PLOT ,type=bool, help='Change how confusion matrices are plot.')
 
-    args = parser.parse_args()
+    parser.add_argument('-b', dest='best', default=DEFAULT_BEST ,type=bool, help='Use only the 5 best features')
 
+    args = parser.parse_args()
+    
     adapter = Adapter(args.crossVal,
                       args.confPlot,
-                      args.number_of_trees)
+                      args.number_of_trees,
+                      args.best)
 
     return adapter

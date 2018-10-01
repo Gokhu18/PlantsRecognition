@@ -16,7 +16,7 @@ class LearnAlgorithms(object):
 
     def runRFPredict(self):
         rf = RandomForestClassifier(n_estimators=self.number_of_trees)
-        rf.fit(self.images,self.labels)
+        rf.fit(self.images, self.labels)
         y_pred = cross_val_predict(rf, self.images, self.labels, cv=self.cv)
         return rf.feature_importances_, confusion_matrix(self.labels, y_pred)
 
