@@ -5,8 +5,9 @@ import numpy as np
 
 class Adapter(object):
 
-    def __init__(self, cv, plot, number_of_trees):
-        rf = readfiles.ReadFiles()
+    def __init__(self, cv, plot, number_of_trees, best):
+        self.best = best
+        rf = readfiles.ReadFiles(best=self.best)
         self.cv = cv
         self.number_of_trees = number_of_trees
         self.images = rf.getImages()
